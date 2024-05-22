@@ -781,6 +781,7 @@ def test_warn_unstable(recwarn: pytest.WarningsRecorder) -> None:
         ("POLARS_FMT_MAX_COLS", "set_tbl_cols", 12, "12"),
         ("POLARS_FMT_MAX_ROWS", "set_tbl_rows", 3, "3"),
         ("POLARS_FMT_STR_LEN", "set_fmt_str_lengths", 42, "42"),
+        ("POLARS_FMT_STR_QUOTES", "set_fmt_str_quotes", True, "1"),
         ("POLARS_FMT_TABLE_CELL_ALIGNMENT", "set_tbl_cell_alignment", "RIGHT", "RIGHT"),
         (
             "POLARS_FMT_TABLE_CELL_NUMERIC_ALIGNMENT",

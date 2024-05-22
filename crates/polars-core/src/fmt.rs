@@ -1016,8 +1016,20 @@ impl Display for AnyValue<'_> {
             AnyValue::Float32(v) => fmt_float(f, width, *v),
             AnyValue::Float64(v) => fmt_float(f, width, *v),
             AnyValue::Boolean(v) => write!(f, "{}", *v),
-            AnyValue::String(v) => write!(f, "{}", format_args!("\"{v}\"")),
-            AnyValue::StringOwned(v) => write!(f, "{}", format_args!("\"{v}\"")),
+            AnyValue::String(v) => {
+                if env_is_true(FMT_STR_QUOTES) {
+                    write!(f, "{}", format_args!("\"{v}\""))
+                } else {
+                    write!(f, "{}", format_args!("{v}"))
+                }
+            },
+            AnyValue::StringOwned(v) => {
+                if env_is_true(FMT_STR_QUOTES) {
+                    write!(f, "{}", format_args!("\"{v}\""))
+                } else {
+                    write!(f, "{}", format_args!("{v}"))
+                }
+            },
             AnyValue::Binary(d) => format_blob(f, d),
             AnyValue::BinaryOwned(d) => format_blob(f, d),
             #[cfg(feature = "dtype-date")]
@@ -1050,7 +1062,11 @@ impl Display for AnyValue<'_> {
             #[cfg(feature = "dtype-categorical")]
             AnyValue::Categorical(_, _, _) | AnyValue::Enum(_, _, _) => {
                 let s = self.get_str().unwrap();
-                write!(f, "\"{s}\"")
+                if env_is_true(FMT_STR_QUOTES) {
+                    write!(f, "\"{s}\"")
+                } else {
+                    write!(f, "{s}")
+                }
             },
             #[cfg(feature = "dtype-array")]
             AnyValue::Array(s, _size) => write!(f, "{}", s.fmt_list()),

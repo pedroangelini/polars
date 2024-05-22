@@ -126,12 +126,16 @@ impl PySeries {
     }
 
     /// Returns the string format of a single element of the Series.
-    fn get_fmt(&self, index: usize, str_len_limit: usize) -> String {
+    /// TODO: use the new str_quotes_active parameter
+    fn get_fmt(&self, index: usize, str_len_limit: usize, str_quotes_active: bool) -> String {
         let v = format!("{}", self.series.get(index).unwrap());
         if let DataType::String | DataType::Categorical(_, _) | DataType::Enum(_, _) =
             self.series.dtype()
         {
-            let v_no_quotes = &v[1..v.len() - 1];
+            let v_no_quotes = match str_quotes_active {
+                true => &v,
+                false => &v[1..v.len() - 1],
+            };
             let v_trunc = &v_no_quotes[..v_no_quotes
                 .char_indices()
                 .take(str_len_limit)
@@ -141,7 +145,11 @@ impl PySeries {
             if v_no_quotes == v_trunc {
                 v
             } else {
-                format!("\"{v_trunc}…")
+                if str_quotes_active {
+                    format!("\"{v_trunc}…")
+                } else {
+                    format!("{v_trunc}…")
+                }
             }
         } else {
             v
