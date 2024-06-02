@@ -127,6 +127,8 @@ fn get_list_len_limit() -> usize {
 
 macro_rules! format_array {
     ($f:ident, $a:expr, $dtype:expr, $name:expr, $array_type:expr) => {{
+        let str_quotes = false;
+
         write!(
             $f,
             "shape: ({},)\n{}: '{}' [{}]\n[\n",
@@ -147,7 +149,7 @@ macro_rules! format_array {
         let write_fn = |v, f: &mut Formatter| -> fmt::Result {
             if truncate {
                 let v = format!("{}", v);
-                let v_no_quotes = &v[1..v.len() - 1];
+                let v_no_quotes = if str_quotes {&v[1..v.len() - 1]} else {&v};
                 let v_trunc = &v_no_quotes[..v_no_quotes
                     .char_indices()
                     .take(truncate_len)
@@ -157,7 +159,11 @@ macro_rules! format_array {
                 if v_no_quotes == v_trunc {
                     write!(f, "\t{}\n", v)?;
                 } else {
-                    write!(f, "\t\"{}…\n", v_trunc)?;
+                    if str_quotes {
+                        write!(f, "\t\"{}…\n", v_trunc)?;
+                    } else {
+                        write!(f, "\t{}…\n", v_trunc)?;
+                    }
                 }
             } else {
                 write!(f, "\t{}\n", v)?;
@@ -1000,6 +1006,17 @@ fn format_blob(f: &mut Formatter<'_>, bytes: &[u8]) -> fmt::Result {
     Ok(())
 }
 
+fn fmt_string(f: &mut Formatter<'_>, v: &str) -> fmt::Result {
+    let str_quotes = false;
+    if str_quotes {
+        write!(f, "{}", format_args!("\"{}\"",v))?;
+    } else {
+        write!(f, "{}", format_args!("{}",v))?;
+    }
+    
+    Ok(())
+}
+
 impl Display for AnyValue<'_> {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         let width = 0;
@@ -1016,8 +1033,9 @@ impl Display for AnyValue<'_> {
             AnyValue::Float32(v) => fmt_float(f, width, *v),
             AnyValue::Float64(v) => fmt_float(f, width, *v),
             AnyValue::Boolean(v) => write!(f, "{}", *v),
-            AnyValue::String(v) => write!(f, "{}", format_args!("\"{v}\"")),
-            AnyValue::StringOwned(v) => write!(f, "{}", format_args!("\"{v}\"")),
+            AnyValue::String(v) => fmt_string(f, v),
+            //AnyValue::StringOwned(v) => write!(f, "{}", format_args!("\"{v}\"")),
+            AnyValue::StringOwned(v) => fmt_string(f, v),
             AnyValue::Binary(d) => format_blob(f, d),
             AnyValue::BinaryOwned(d) => format_blob(f, d),
             #[cfg(feature = "dtype-date")]
