@@ -438,3 +438,4 @@ __all__ = [
 ]
 
 os.environ["POLARS_ALLOW_EXTENSION"] = "true"
+os.environ["POLARS_FMT_STR_QUOTES"] = "true"

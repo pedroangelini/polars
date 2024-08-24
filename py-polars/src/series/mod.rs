@@ -13,6 +13,8 @@ use std::io::Cursor;
 use polars_core::series::IsSorted;
 use polars_core::utils::flatten::flatten_series;
 use polars_core::{with_match_physical_numeric_polars_type, with_match_physical_numeric_type};
+use polars_core::config::env_is_true;
+use polars_core::config::FMT_STR_QUOTES;
 use pyo3::exceptions::{PyIndexError, PyRuntimeError, PyValueError};
 use pyo3::prelude::*;
 use pyo3::types::PyBytes;
@@ -127,7 +129,7 @@ impl PySeries {
 
     /// Returns the string format of a single element of the Series.
     fn get_fmt(&self, index: usize, str_len_limit: usize) -> String {
-        let str_quotes = true;
+        let str_quotes = env_is_true(FMT_STR_QUOTES);
         
         let v = format!("{}", self.series.get(index).unwrap());
         if let DataType::String | DataType::Categorical(_, _) | DataType::Enum(_, _) =

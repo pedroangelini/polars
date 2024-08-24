@@ -6,6 +6,8 @@ pub(crate) const FMT_MAX_COLS: &str = "POLARS_FMT_MAX_COLS";
 pub(crate) const FMT_MAX_ROWS: &str = "POLARS_FMT_MAX_ROWS";
 pub(crate) const FMT_STR_LEN: &str = "POLARS_FMT_STR_LEN";
 #[cfg(any(feature = "fmt", feature = "fmt_no_tty"))]
+pub const FMT_STR_QUOTES: &str = "POLARS_FMT_STR_QUOTES";
+#[cfg(any(feature = "fmt", feature = "fmt_no_tty"))]
 pub(crate) const FMT_TABLE_CELL_ALIGNMENT: &str = "POLARS_FMT_TABLE_CELL_ALIGNMENT";
 #[cfg(any(feature = "fmt", feature = "fmt_no_tty"))]
 pub(crate) const FMT_TABLE_CELL_NUMERIC_ALIGNMENT: &str = "POLARS_FMT_TABLE_CELL_NUMERIC_ALIGNMENT";
@@ -59,4 +61,11 @@ pub fn force_async() -> bool {
     std::env::var("POLARS_FORCE_ASYNC")
         .map(|value| value == "1")
         .unwrap_or_default()
+}
+
+// helper function for boolean env variables
+#[cfg(any(feature = "fmt", feature = "fmt_no_tty"))]
+pub fn env_is_true(varname: &str) -> bool {
+
+    std::env::var(varname).as_deref().unwrap_or("0") == "1"
 }

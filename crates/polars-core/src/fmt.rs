@@ -522,10 +522,6 @@ fn prepare_row(
     row_strings
 }
 
-#[cfg(any(feature = "fmt", feature = "fmt_no_tty"))]
-fn env_is_true(varname: &str) -> bool {
-    std::env::var(varname).as_deref().unwrap_or("0") == "1"
-}
 
 #[cfg(any(feature = "fmt", feature = "fmt_no_tty"))]
 fn fmt_df_shape((shape0, shape1): &(usize, usize)) -> String {
@@ -1068,7 +1064,11 @@ impl Display for AnyValue<'_> {
             #[cfg(feature = "dtype-categorical")]
             AnyValue::Categorical(_, _, _) | AnyValue::Enum(_, _, _) => {
                 let s = self.get_str().unwrap();
-                write!(f, "\"{s}\"")
+                if env_is_true(FMT_STR_QUOTES) {
+                    write!(f, "\"{s}\"")
+                } else {
+                    write!(f, "{s}")
+                }
             },
             #[cfg(feature = "dtype-array")]
             AnyValue::Array(s, _size) => write!(f, "{}", s.fmt_list()),

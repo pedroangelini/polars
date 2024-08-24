@@ -52,6 +52,7 @@ _POLARS_CFG_ENV_VARS = {
     "POLARS_FMT_NUM_GROUP_SEPARATOR",
     "POLARS_FMT_NUM_LEN",
     "POLARS_FMT_STR_LEN",
+    "POLARS_FMT_STR_QUOTES",
     "POLARS_FMT_TABLE_CELL_ALIGNMENT",
     "POLARS_FMT_TABLE_CELL_LIST_LEN",
     "POLARS_FMT_TABLE_CELL_NUMERIC_ALIGNMENT",
@@ -691,6 +692,51 @@ class Config(contextlib.ContextDecorator):
                 raise ValueError(msg)
 
             os.environ["POLARS_FMT_STR_LEN"] = str(n)
+        return cls
+    
+    @classmethod
+    def set_fmt_str_quotes(cls, active: bool | None = True) -> type[Config]:
+        """
+        Adds quotes around string types in html representation. Defaults to True.
+
+
+        Examples
+        --------
+        >>> df = pl.DataFrame(
+        ...     {
+        ...         "txt": [
+        ...             “When you light a candle,",
+        ...             "you also cast a shadow.",
+        ...         ]
+        ...     }
+        ... )
+        >>> with pl.Config(fmt_str_quotes=True):
+        ...     print(df)
+        shape: (2, 1)
+        ┌────────────────────────────┐
+        │ txt                        │
+        │ ---                        │
+        │ str                        │
+        ╞════════════════════════════╡
+        │ “When you light a candle," │
+        │ "you also cast a shadow."  │
+        └────────────────────────────┘
+        >>> with pl.Config(fmt_str_quotes=False):
+        ...     print(df)
+        shape: (2, 1)
+        ┌──────────────────────────┐
+        │ txt                      │
+        │ ---                      │
+        │ str                      │
+        ╞══════════════════════════╡
+        │ When you light a candle, │
+        │ you also cast a shadow.  │
+        └──────────────────────────┘
+        """
+        if active is None:
+            os.environ.pop("POLARS_FMT_STR_QUOTES", None)
+        else:
+            os.environ["POLARS_FMT_STR_QUOTES"] = str(int(active))
         return cls
 
     @classmethod
