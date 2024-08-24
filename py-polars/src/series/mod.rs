@@ -127,7 +127,7 @@ impl PySeries {
 
     /// Returns the string format of a single element of the Series.
     fn get_fmt(&self, index: usize, str_len_limit: usize) -> String {
-        let str_quotes = false;
+        let str_quotes = true;
         
         let v = format!("{}", self.series.get(index).unwrap());
         if let DataType::String | DataType::Categorical(_, _) | DataType::Enum(_, _) =

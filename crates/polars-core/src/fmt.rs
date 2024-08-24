@@ -127,7 +127,7 @@ fn get_list_len_limit() -> usize {
 
 macro_rules! format_array {
     ($f:ident, $a:expr, $dtype:expr, $name:expr, $array_type:expr) => {{
-        let str_quotes = false;
+        let str_quotes = true;
 
         write!(
             $f,
@@ -1007,7 +1007,7 @@ fn format_blob(f: &mut Formatter<'_>, bytes: &[u8]) -> fmt::Result {
 }
 
 fn fmt_string(f: &mut Formatter<'_>, v: &str) -> fmt::Result {
-    let str_quotes = false;
+    let str_quotes = true;
     if str_quotes {
         write!(f, "{}", format_args!("\"{}\"",v))?;
     } else {
