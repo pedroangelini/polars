@@ -119,7 +119,11 @@ class HTMLFormatter:
                             else:
                                 series = self.df[:, c]
                                 self.elements.append(
-                                    html.escape(series._s.get_fmt(r, str_len_limit, str_quotes_active))
+                                    html.escape(
+                                        series._s.get_fmt(
+                                            r, str_len_limit, str_quotes_active
+                                        )
+                                    )
                                 )
 
     def write(self, inner: str) -> None:

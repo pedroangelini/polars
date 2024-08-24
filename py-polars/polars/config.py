@@ -693,12 +693,11 @@ class Config(contextlib.ContextDecorator):
 
             os.environ["POLARS_FMT_STR_LEN"] = str(n)
         return cls
-    
+
     @classmethod
     def set_fmt_str_quotes(cls, active: bool | None = True) -> type[Config]:
         """
         Adds quotes around string types in html representation. Defaults to True.
-
 
         Examples
         --------

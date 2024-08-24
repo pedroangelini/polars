@@ -149,7 +149,7 @@ macro_rules! format_array {
         let write_fn = |v, f: &mut Formatter| -> fmt::Result {
             if truncate {
                 let v = format!("{}", v);
-                let v_no_quotes = if str_quotes {&v[1..v.len() - 1]} else {&v};
+                let v_no_quotes = if str_quotes { &v[1..v.len() - 1] } else { &v };
                 let v_trunc = &v_no_quotes[..v_no_quotes
                     .char_indices()
                     .take(truncate_len)
@@ -521,7 +521,6 @@ fn prepare_row(
     }
     row_strings
 }
-
 
 #[cfg(any(feature = "fmt", feature = "fmt_no_tty"))]
 fn fmt_df_shape((shape0, shape1): &(usize, usize)) -> String {
@@ -1005,11 +1004,11 @@ fn format_blob(f: &mut Formatter<'_>, bytes: &[u8]) -> fmt::Result {
 fn fmt_string(f: &mut Formatter<'_>, v: &str) -> fmt::Result {
     let str_quotes = true;
     if str_quotes {
-        write!(f, "{}", format_args!("\"{}\"",v))?;
+        write!(f, "{}", format_args!("\"{}\"", v))?;
     } else {
-        write!(f, "{}", format_args!("{}",v))?;
+        write!(f, "{}", format_args!("{}", v))?;
     }
-    
+
     Ok(())
 }
 
