@@ -1,0 +1,247 @@
+✏️  Setting installed package as editable
+../.venv/bin/pytest -n auto --dist loadgroup 
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.1.1, pluggy-1.5.0
+codspeed: 2.2.1 (callgraph: enabled)
+rootdir: /home/pedro/dev/polars/py-polars
+configfile: pyproject.toml
+plugins: cov-5.0.0, hypothesis-6.97.4, xdist-3.5.0, codspeed-2.2.1
+created: 4/4 workers
+4 workers [5750 items]
+
+........................................................................ [  1%]
+........................................s............................... [  2%]
+........................................................................ [  3%]
+........................................................................ [  4%]
+........................................................................ [  6%]
+.......................................................................... [  7%]
+........................................................................ [  8%]
+..F..F......F....................................FF..................... [ 10%]
+........................................................................ [ 11%]
+........................................................................ [ 12%]
+....................................F............................F...... [ 13%]
+........................................................................ [ 15%]
+......................................................................... [ 16%]
+..s..................................................................... [ 17%]
+........................................................................ [ 18%]
+......................................................................... [ 20%]
+........................................................................ [ 21%]
+........................................................................ [ 22%]
+........................................................................ [ 23%]
+......................................................................... [ 25%]
+......................................................................... [ 26%]
+........................................................................ [ 27%]
+........................................................................ [ 28%]
+......................................................................... [ 30%]
+........................................................................ [ 31%]
+........................................................................ [ 32%]
+................................................................s....... [ 33%]
+........................................................................ [ 35%]
+..............................F......................................... [ 36%]
+...........................................ss........................... [ 37%]
+......................................................................... [ 38%]
+........................................................................ [ 40%]
+........................................................................ [ 41%]
+........................................................................ [ 42%]
+........................................................................ [ 43%]
+........................................................................ [ 45%]
+........................................................................ [ 46%]
+......................................................................... [ 47%]
+........................................................................ [ 48%]
+........................................................................ [ 50%]
+......................................................................... [ 51%]
+........................................................................ [ 52%]
+........................................................................ [ 54%]
+......................................................................... [ 55%]
+........................................................................ [ 56%]
+........................................................................ [ 57%]
+........................................................................ [ 59%]
+........................................................................ [ 60%]
+......................................................................... [ 61%]
+........................................................................ [ 62%]
+......................................................................... [ 64%]
+........................................................................ [ 65%]
+......................................................................... [ 66%]
+........................................................................ [ 67%]
+........................................................................ [ 69%]
+........................................................................ [ 70%]
+........................................................................ [ 71%]
+........................................................................ [ 72%]
+........................................................................ [ 74%]
+........................................................................ [ 75%]
+........................................................................ [ 76%]
+........................................................................ [ 77%]
+......................................................................... [ 79%]
+......................................................................... [ 80%]
+........................................................................ [ 81%]
+........................................................................ [ 82%]
+.........................................................F.............. [ 84%]
+........................................................................ [ 85%]
+........................................................................ [ 86%]
+........................................................................ [ 87%]
+........................................................................ [ 89%]
+.................................................................F.F.... [ 90%]
+.........F.............................................................. [ 91%]
+........................................................................ [ 92%]
+........................................................................ [ 94%]
+......................................................................... [ 95%]
+........................................................................ [ 96%]
+........................................................................ [ 97%]
+........................................................................ [ 99%]
+.............................................                            [100%]
+=================================== FAILURES ===================================
+_______________________________ test_html_tables _______________________________
+[gw3] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/dataframe/test_repr_html.py:35: in test_html_tables
+    assert header in df._repr_html_()
+polars/dataframe/frame.py:1287: in _repr_html_
+    ).render()
+polars/dataframe/_html.py:181: in render
+    super().render()
+polars/dataframe/_html.py:154: in render
+    self.write_body()
+polars/dataframe/_html.py:123: in write_body
+    series._s.get_fmt(
+E   TypeError: PySeries.get_fmt() takes 2 positional arguments but 3 were given
+________________________ test_df_repr_html_max_rows_odd ________________________
+[gw0] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/dataframe/test_repr_html.py:67: in test_df_repr_html_max_rows_odd
+    html = df._repr_html_()
+polars/dataframe/frame.py:1287: in _repr_html_
+    ).render()
+polars/dataframe/_html.py:181: in render
+    super().render()
+polars/dataframe/_html.py:154: in render
+    self.write_body()
+polars/dataframe/_html.py:123: in write_body
+    series._s.get_fmt(
+E   TypeError: PySeries.get_fmt() takes 2 positional arguments but 3 were given
+________________________________ test_repr_html ________________________________
+[gw2] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/dataframe/test_repr_html.py:15: in test_repr_html
+    html = df._repr_html_()
+polars/dataframe/frame.py:1287: in _repr_html_
+    ).render()
+polars/dataframe/_html.py:181: in render
+    super().render()
+polars/dataframe/_html.py:154: in render
+    self.write_body()
+polars/dataframe/_html.py:123: in write_body
+    series._s.get_fmt(
+E   TypeError: PySeries.get_fmt() takes 2 positional arguments but 3 were given
+______________________ test_df_repr_html_max_rows_default ______________________
+[gw2] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/dataframe/test_repr_html.py:57: in test_df_repr_html_max_rows_default
+    html = df._repr_html_()
+polars/dataframe/frame.py:1287: in _repr_html_
+    ).render()
+polars/dataframe/_html.py:181: in render
+    super().render()
+polars/dataframe/_html.py:154: in render
+    self.write_body()
+polars/dataframe/_html.py:123: in write_body
+    series._s.get_fmt(
+E   TypeError: PySeries.get_fmt() takes 2 positional arguments but 3 were given
+____________________ test_series_repr_html_max_rows_default ____________________
+[gw3] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/dataframe/test_repr_html.py:76: in test_series_repr_html_max_rows_default
+    html = s._repr_html_()
+polars/series/series.py:1464: in _repr_html_
+    return self.to_frame()._repr_html_(_from_series=True)
+polars/dataframe/frame.py:1287: in _repr_html_
+    ).render()
+polars/dataframe/_html.py:181: in render
+    super().render()
+polars/dataframe/_html.py:154: in render
+    self.write_body()
+polars/dataframe/_html.py:123: in write_body
+    series._s.get_fmt(
+E   TypeError: PySeries.get_fmt() takes 2 positional arguments but 3 were given
+_____________ test_casting_to_an_enum_from_categorical_nonexistent _____________
+[gw1] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/datatypes/test_enum.py:173: in test_casting_to_an_enum_from_categorical_nonexistent
+    pl.Series([None, "a", "b", "c"], dtype=pl.Categorical).cast(pl.Enum(["a", "b"]))
+polars/series/series.py:4133: in cast
+    return self._from_pyseries(self._s.cast(dtype, strict))
+E   polars.exceptions.ComputeError: conversion from `cat` to `enum` failed in column '' for 1 out of 4 values: [c]
+
+During handling of the above exception, another exception occurred:
+tests/unit/datatypes/test_enum.py:167: in test_casting_to_an_enum_from_categorical_nonexistent
+    with pytest.raises(
+E   AssertionError: Regex pattern did not match.
+E    Regex: 'conversion from `cat` to `enum` failed in column \'\' for 1 out of 4 values: \\[\\"c\\"\\]'
+E    Input: "conversion from `cat` to `enum` failed in column '' for 1 out of 4 values: [c]"
+_________ test_casting_to_an_enum_from_global_categorical_nonexistent __________
+[gw1] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/datatypes/test_enum.py:195: in test_casting_to_an_enum_from_global_categorical_nonexistent
+    pl.Series([None, "a", "b", "c"], dtype=pl.Categorical).cast(pl.Enum(["a", "b"]))
+polars/series/series.py:4133: in cast
+    return self._from_pyseries(self._s.cast(dtype, strict))
+E   polars.exceptions.ComputeError: conversion from `cat` to `enum` failed in column '' for 1 out of 4 values: [c]
+
+During handling of the above exception, another exception occurred:
+tests/unit/datatypes/test_enum.py:189: in test_casting_to_an_enum_from_global_categorical_nonexistent
+    with pytest.raises(
+E   AssertionError: Regex pattern did not match.
+E    Regex: 'conversion from `cat` to `enum` failed in column \'\' for 1 out of 4 values: \\[\\"c\\"\\]'
+E    Input: "conversion from `cat` to `enum` failed in column '' for 1 out of 4 values: [c]"
+____________________________ test_series_from_repr _____________________________
+[gw1] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/interop/test_interop.py:830: in test_series_from_repr
+    s = cast(pl.Series, pl.from_repr(repr(frame[col])))
+polars/series/series.py:632: in __repr__
+    return self.__str__()
+polars/series/series.py:628: in __str__
+    s_repr: str = self._s.as_str()
+E   pyo3_runtime.PanicException: begin <= end (1 <= 0) when slicing `x`
+----------------------------- Captured stderr call -----------------------------
+thread '<unnamed>' panicked at crates/polars-core/src/fmt.rs:381:17:
+begin <= end (1 <= 0) when slicing `x`
+________________________________ test_repr_html ________________________________
+[gw0] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/series/test_series.py:2072: in test_repr_html
+    html = pl.Series("misc", [123, 456, 789])._repr_html_()
+polars/series/series.py:1464: in _repr_html_
+    return self.to_frame()._repr_html_(_from_series=True)
+polars/dataframe/frame.py:1287: in _repr_html_
+    ).render()
+polars/dataframe/_html.py:181: in render
+    super().render()
+polars/dataframe/_html.py:154: in render
+    self.write_body()
+polars/dataframe/_html.py:123: in write_body
+    series._s.get_fmt(
+E   TypeError: PySeries.get_fmt() takes 2 positional arguments but 3 were given
+_______________ test_fmt_series_string_truncate_cat[Categorical] _______________
+[gw2] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/test_format.py:121: in test_fmt_series_string_truncate_cat
+    assert result == expected
+E   AssertionError
+----------------------------- Captured stdout call -----------------------------
+['abc', 'abcd', 'abcde']
+_________________ test_fmt_series_string_truncate_cat[dtype2] __________________
+[gw3] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/test_format.py:121: in test_fmt_series_string_truncate_cat
+    assert result == expected
+E   AssertionError
+----------------------------- Captured stdout call -----------------------------
+['abc', 'abcd', 'abcde']
+___________________________ test_fmt_series_cat_list ___________________________
+[gw2] linux -- Python 3.12.3 /home/pedro/dev/polars/.venv/bin/python3
+tests/unit/test_format.py:334: in test_fmt_series_cat_list
+    str(s)
+E   AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/dataframe/test_repr_html.py::test_html_tables - TypeError: ...
+FAILED tests/unit/dataframe/test_repr_html.py::test_df_repr_html_max_rows_odd
+FAILED tests/unit/dataframe/test_repr_html.py::test_repr_html - TypeError: Py...
+FAILED tests/unit/dataframe/test_repr_html.py::test_df_repr_html_max_rows_default
+FAILED tests/unit/dataframe/test_repr_html.py::test_series_repr_html_max_rows_default
+FAILED tests/unit/datatypes/test_enum.py::test_casting_to_an_enum_from_categorical_nonexistent
+FAILED tests/unit/datatypes/test_enum.py::test_casting_to_an_enum_from_global_categorical_nonexistent
+FAILED tests/unit/interop/test_interop.py::test_series_from_repr - pyo3_runti...
+FAILED tests/unit/series/test_series.py::test_repr_html - TypeError: PySeries...
+FAILED tests/unit/test_format.py::test_fmt_series_string_truncate_cat[Categorical]
+FAILED tests/unit/test_format.py::test_fmt_series_string_truncate_cat[dtype2]
+FAILED tests/unit/test_format.py::test_fmt_series_cat_list - AssertionError
+================= 12 failed, 5733 passed, 5 skipped in 24.09s ==================
